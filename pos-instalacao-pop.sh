@@ -11,6 +11,9 @@ if [ "$confirm" != "y" ]; then
     exit 0
 fi
 
+# Instala o pacote pv
+sudo apt install -y pv 
+
 # Define a posição do Docker à direita com um tamanho de 36px
 gsettings set org.gnome.shell.extensions.dash-to-dock dock-position RIGHT
 gsettings set org.gnome.shell.extensions.dash-to-dock dash-max-icon-size 36
