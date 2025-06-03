@@ -1,4 +1,5 @@
 #!/bin/bash
+set -euo pipefail
 
 # Redirect all output to a log file
 exec > >(tee -a /home/$USER/Documentos/Log_PostInstall/Log.txt)
@@ -39,6 +40,23 @@ if [ -n "$name" ] && [ -n "$email" ]; then
     git config --global user.name "$name"
     git config --global user.email "$email"
 fi
+APT_PACKAGES=(vlc sublime-text python nodejs npm docker.io flatpak)
+SNAP_PACKAGES=(telegram-desktop post htop rclone code)
+
+install_apt_packages() {
+    sudo apt install -y "${APT_PACKAGES[@]}" | pv -lep
+}
+
+install_snap_packages() {
+    for pkg in "${SNAP_PACKAGES[@]}"; do
+        if [[ "$pkg" == "code" || "$pkg" == "rclone" ]]; then
+            sudo snap install "$pkg" --classic | pv -lep
+        else
+            sudo snap install "$pkg" | pv -lep
+        fi
+    done
+}
+
 
 # Atualiza e faz upgrade do apt
 sudo apt update | pv -lep
@@ -46,19 +64,15 @@ sudo apt upgrade -y | pv -lep
 sudo apt dist-upgrade -y | pv -lep
 
 # Instala pacotes usando apt
-sudo apt install -y vlc sublime-text python | pv -lep
+install_apt_packages
 
 # Instala pacotes usando snap
-sudo snap install telegram-desktop post htop | pv -lep
-sudo snap install rclone --classic | pv -lep
-sudo snap install code --classic | pv -lep
+install_snap_packages
 
-# Instala o node, npm e angular
-sudo apt install -y nodejs npm | pv -lep
+# Node e npm instalados via APT, instala Angular CLI
 sudo npm install -g @angular/cli | pv -lep
 
-# Instala o Docker
-sudo apt install -y docker.io | pv -lep
+# Docker instalado via APT
 # Adiciona o usuário atual ao grupo docker
 sudo usermod -aG docker $USER
 # Pergunta ao usuário se deseja instalar as imagens do Postgres e Oracle
@@ -105,7 +119,6 @@ rm google-chrome-stable_current_amd64.deb
 xdg-settings set default-web-browser google-chrome.desktop
 
 # Instala e configura o Flatpak e Flathub
-sudo apt install -y flatpak | pv -lep
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo | pv -lep
 
 # Instala o Microsoft Teams do Flathub
