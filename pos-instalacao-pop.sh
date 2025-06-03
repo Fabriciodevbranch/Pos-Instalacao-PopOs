@@ -201,7 +201,7 @@ echo "Digite a senha para proteger o arquivo de senhas"
 read -s senha
 echo $senha | gpg --batch --yes --passphrase-fd 0 -c /home/$USER/Documentos/.cofre/.senhas.txt
 
-# Solicita se deseja configurar o Google Drive
+# Solicita se deseja configurar o Google Drive, e caso afirmativo, realiza a configuração
 read -p "Deseja configurar o Google Drive? (y/n): " install_google_drive
 
 if [ "$install_google_drive" == "y" ]; then
