@@ -199,7 +199,7 @@ mkdir -p /home/$USER/Documentos/.cofre
 touch /home/$USER/Documentos/.cofre/.senhas.txt
 echo "Digite a senha para proteger o arquivo de senhas"
 read -s senha
-echo $senha | gpg --batch --yes --passphrase-fd 0 -c /home/$USER/Documentos/.cofre/.senhas.txt
+echo "$senha" | gpg --batch --yes --passphrase-fd 0 -c /home/$USER/Documentos/.cofre/.senhas.txt
 
 # Solicita se deseja configurar o Google Drive, e caso afirmativo, realiza a configuração
 read -p "Deseja configurar o Google Drive? (y/n): " install_google_drive
