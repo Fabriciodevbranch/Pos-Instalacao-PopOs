@@ -1,6 +1,9 @@
 #!/bin/bash
 set -euo pipefail
 
+# Ensure log directory exists
+mkdir -p /home/$USER/Documentos/Log_PostInstall
+
 # Redirect all output to a log file
 exec > >(tee -a /home/$USER/Documentos/Log_PostInstall/Log.txt)
 exec 2>&1
