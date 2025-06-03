@@ -201,14 +201,14 @@ echo "Digite a senha para proteger o arquivo de senhas"
 read -s senha
 echo $senha | gpg --batch --yes --passphrase-fd 0 -c /home/$USER/Documentos/.cofre/.senhas.txt
 
-# Solicita se deseja configurar o google drive e solicita o email e a senha e cria um diretorio na pasta de documentos do usuario chamado google_drive sincronizada com o gdrive
+# Solicita se deseja configurar o Google Drive
+read -p "Deseja configurar o Google Drive? (y/n): " install_google_drive
 
 if [ "$install_google_drive" == "y" ]; then
     echo "Digite o email do Google Drive"
     read email
     echo "Digite a senha do Google Drive"
     read -s senha
-    read -p "Deseja configurar o Google Drive? (y/n): " install_google_drive
     read -p "cliente_id: " client_id
     read -p "client_secret: " client_secret
     mkdir -p /home/$USER/Documentos/google_drive
