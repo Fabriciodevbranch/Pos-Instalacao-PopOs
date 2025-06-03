@@ -175,7 +175,7 @@ code --install-extension pkief.material-icon-theme
 
 
 # Cria um diretorio na pasta de documentos do usuario chamaod projetos
-mkdir /home/$USER/Documentos/projetos
+mkdir -p /home/$USER/Documentos/projetos
 
 # Adiciona um alias para o comando top apontando para o htop no .bashrc
 echo "alias top='htop'" >> ~/.bashrc
@@ -195,7 +195,7 @@ echo "function mkcd() {
 echo "export PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '" >> ~/.bashrc
 
 #Cria um diretorio na  pasta de documentos do usuario chamado cofre e dentro dele cria um arquivo chamado senhas.txt, o diretorio e o arquivo são ocultos e o arquivo é protegido com senha
-mkdir /home/$USER/Documentos/.cofre
+mkdir -p /home/$USER/Documentos/.cofre
 touch /home/$USER/Documentos/.cofre/.senhas.txt
 echo "Digite a senha para proteger o arquivo de senhas"
 read -s senha
@@ -211,7 +211,7 @@ if [ "$install_google_drive" == "y" ]; then
     read -p "Deseja configurar o Google Drive? (y/n): " install_google_drive
     read -p "cliente_id: " client_id
     read -p "client_secret: " client_secret
-    mkdir /home/$USER/Documentos/google_drive
+    mkdir -p /home/$USER/Documentos/google_drive
     rclone config create google_drive drive scope drive.file client_id $client_id client_secret $client_secret
     rclone config file
     rclone config password
